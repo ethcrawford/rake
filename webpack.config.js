@@ -43,11 +43,32 @@ module.exports = function(env) {
           rules: [
             {
               test: /\.css$/,
-              use: ["style-loader", "css-loader"]
+              use: [
+                "style-loader",
+                "css-loader",
+                {
+                  loader: "postcss-loader",
+                  options: {
+                    ident: "postcss",
+                    plugins: [require("autoprefixer")()]
+                  }
+                }
+              ]
             },
             {
               test: /\.scss$/,
-              use: ["style-loader", "css-loader", "sass-loader"]
+              use: [
+                "style-loader",
+                "css-loader",
+                {
+                  loader: "postcss-loader",
+                  options: {
+                    ident: "postcss",
+                    plugins: [require("autoprefixer")()]
+                  }
+                },
+                "sass-loader"
+              ]
             }
           ]
         }
@@ -71,11 +92,32 @@ module.exports = function(env) {
           rules: [
             {
               test: /\.css$/,
-              use: [MiniCssExtractPlugin.loader, "css-loader"]
+              use: [
+                MiniCssExtractPlugin.loader,
+                "css-loader",
+                {
+                  loader: "postcss-loader",
+                  options: {
+                    ident: "postcss",
+                    plugins: [require("autoprefixer")()]
+                  }
+                }
+              ]
             },
             {
               test: /\.scss$/,
-              use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+              use: [
+                MiniCssExtractPlugin.loader,
+                "css-loader",
+                {
+                  loader: "postcss-loader",
+                  options: {
+                    ident: "postcss",
+                    plugins: [require("autoprefixer")()]
+                  }
+                },
+                "sass-loader"
+              ]
             }
           ]
         }

@@ -2,3 +2,10 @@
   background: pink;
   font-weight: 400;
 }
+
+.flex {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  flex: auto;
+}
