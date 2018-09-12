@@ -74,6 +74,11 @@ module.exports = function(env) {
       common,
       {
         mode: "development",
+        devtool: "cheap-eval-source-map",
+        devServer: {
+          port: 9000,
+          contentBase: path.join(__dirname, "dist")
+        },
         module: {
           rules: [
             {
@@ -115,7 +120,7 @@ module.exports = function(env) {
       {
         mode: "production",
         optimization: {
-          minimizer: [new UglifyJsPlugin({}), new OptimizeCSSAssetsPlugin({})]
+          minimizer: [new UglifyJsPlugin(), new OptimizeCSSAssetsPlugin()]
         },
         plugins: [
           new MiniCssExtractPlugin({
