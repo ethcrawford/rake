@@ -1,0 +1,10 @@
+{
+  "name": "rake",
+  "version": "1.0.0",
+  "description": "no desc",
+  "main": "index.js",
+  "repository": "https://github.com/ethcrawford/rake",
+  "author": "Ethan Crawford <ethcrawford@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
