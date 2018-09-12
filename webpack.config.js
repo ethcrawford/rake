@@ -64,8 +64,7 @@ const common = merge([
     }
   },
   addPage("index"),
-  addPage("one"),
-  addPage("two")
+  addPage("typography")
 ]);
 
 module.exports = function(env) {
