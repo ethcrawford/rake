@@ -24,7 +24,7 @@ const common = merge([
   {
     entry: "./src/index.js",
     output: {
-      filename: "main.js",
+      filename: "static/js/main-[hash].js",
       path: path.resolve(__dirname, "dist")
     },
     module: {
@@ -36,6 +36,27 @@ const common = merge([
             loader: "babel-loader",
             options: {
               presets: ["@babel/preset-env"]
+            }
+          }
+        },
+        {
+          test: /\.(png|svg|jpe?g|gif|woff2?|ttf|eot)$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                name: "static/media/[name]-[hash].[ext]"
+              }
+            }
+          ]
+        },
+        {
+          test: /\.html$/,
+          use: {
+            loader: "html-loader",
+            options: {
+              attrs: ["img:src", "link:href"],
+              interpolate: true
             }
           }
         }
@@ -98,7 +119,7 @@ module.exports = function(env) {
         },
         plugins: [
           new MiniCssExtractPlugin({
-            filename: "[name].css",
+            filename: "static/css/[name]-[contenthash].css",
             chunkFilename: "[id].css"
           })
         ],
