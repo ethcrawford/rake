@@ -1,6 +1,9 @@
 const path = require("path");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 function addPage(page) {
   const filename = page + ".html";
@@ -32,8 +35,43 @@ const common = merge([
 
 module.exports = function(env) {
   if (env === "development") {
-    return merge([common, { mode: "development" }]);
+    return merge([
+      common,
+      {
+        mode: "development",
+        module: {
+          rules: [
+            {
+              test: /\.css$/,
+              use: ["style-loader", "css-loader"]
+            }
+          ]
+        }
+      }
+    ]);
   } else {
-    return merge([common, { mode: "production" }]);
+    return merge([
+      common,
+      {
+        mode: "production",
+        optimization: {
+          minimizer: [new UglifyJsPlugin({}), new OptimizeCSSAssetsPlugin({})]
+        },
+        plugins: [
+          new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].css"
+          })
+        ],
+        module: {
+          rules: [
+            {
+              test: /\.css$/,
+              use: [MiniCssExtractPlugin.loader, "css-loader"]
+            }
+          ]
+        }
+      }
+    ]);
   }
 };
